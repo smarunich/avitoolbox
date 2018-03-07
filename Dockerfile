@@ -33,9 +33,9 @@ RUN mkdir -p /opt/ansible
 
 RUN echo "===> Installing Golang..." && \ 
     apt-get install -y golang-1.9-go
-RUN echo "===> Installing Terraform and AVI provider..." && \ 
-    apt-get install -y git curl vim unzip make
-
+RUN echo "===> Installing Terraform, AVI provider and misc..." && \ 
+    apt-get install -y git curl vim unzip make tmux httpie 
+    
 RUN curl https://releases.hashicorp.com/terraform/${tf_version}/terraform_${tf_version}_linux_amd64.zip -o terraform_${tf_version}_linux_amd64.zip
 RUN unzip terraform_${tf_version}_linux_amd64.zip -d /usr/local/bin
 RUN echo "export GOROOT=/usr/lib/go-1.9" >> /etc/bash.bashrc
