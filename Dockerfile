@@ -16,11 +16,15 @@ RUN echo "===> Adding Ansible's PPA..."  && \
     \
     \
     echo "===> Installing Ansible and AVI SDK dependencies, AVI migration tools..."  && \
-    apt-get install -y ansible python-dev python-pip python-virtualenv python-cffi libssl-dev libffi-dev
+    apt-get install -y ansible wget python-dev python-pip python-virtualenv python-cffi libssl-dev libffi-dev
 
 RUN pip install avisdk --upgrade
 RUN ansible-galaxy install avinetworks.avisdk
 RUN pip install avimigrationtools
+
+RUN mkdir -p /etc/ansible/library/avi 
+RUN cd /etc/ansible/library/avi && wget https://github.com/avinetworks/avi_ansible_modules/archive/master.tar.gz && tar -xvf master.tar.gz -C /etc/ansible/library
+RUN echo "export ANSIBLE_LIBRARY=/etc/ansible/library/avi" >> /etc/bash.bashrc
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y software-properties-common python-software-properties
 RUN add-apt-repository -y ppa:gophers/archive
@@ -48,6 +52,5 @@ RUN /usr/lib/go-1.9/bin/go get github.com/avinetworks/sdk/go/session
 RUN mkdir -p /root/go/src/github.com/terraform-providers/terraform-provider-avi
 RUN cp -r /root/go/src/github.com/hashicorp/terraform-provider-avi /root/go/src/github.com/terraform-providers/
 RUN export PATH=$PATH:/usr/lib/go-1.9/bin && cd /root/go/src/github.com/terraform-providers/terraform-provider-avi  && make build
-
-
+RUN mkdir -p /root/.terraform.d/plugins/ && ln -s /root/go/bin/terraform-provider-avi ~/.terraform.d/plugins/
 RUN mkdir -p /opt/terraform
