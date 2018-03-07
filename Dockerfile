@@ -1,12 +1,7 @@
-# Dockerfile for building Ansible image for Ubuntu 16.04, with as few additional software as possible.
-#
-# @see https://launchpad.net/~ansible/+archive/ubuntu/ansible
+# Dockerfile for building ubuntu:16.04 with avi sdk, ansible modules, terraform provider and migration tools
 #
 # Version  1.0
 #
-
-
-# pull base image
 FROM ubuntu:16.04
 
 MAINTAINER Sergey Marunich <marunich.s@gmail.com>
