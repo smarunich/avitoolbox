@@ -16,7 +16,7 @@ RUN echo "===> Adding Ansible's PPA..."  && \
     \
     \
     echo "===> Installing Ansible and AVI SDK dependencies, AVI migration tools..."  && \
-    apt-get install -y ansible wget python-dev python-pip python-virtualenv python-cffi libssl-dev libffi-dev
+    apt-get install -y ansible wget python-dev python-pip python-virtualenv python-cffi ipython libssl-dev libffi-dev
 
 RUN pip install avisdk --upgrade
 RUN ansible-galaxy install avinetworks.avisdk
