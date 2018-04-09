@@ -6,7 +6,7 @@ FROM ubuntu:16.04
 
 MAINTAINER Sergey Marunich <marunich.s@gmail.com>
 
-ARG tf_version="0.11.6"
+ARG tf_version="0.11.5"
 
 RUN echo "===> Adding Ansible's PPA..."  && \
     echo "deb http://ppa.launchpad.net/ansible/ansible/ubuntu xenial main" | tee /etc/apt/sources.list.d/ansible.list           && \
