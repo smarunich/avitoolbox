@@ -20,7 +20,7 @@ RUN echo "===> Adding Ansible's PPA..."  && \
 
 RUN pip install avisdk --upgrade
 RUN ansible-galaxy install avinetworks.avisdk avinetworks.avicontroller avinetworks.avise avinetworks.aviconfig avinetworks.avicontroller-azure avinetworks.ansible-role-avicontroller-vmware avinetworks.avise-csp avinetworks.avicontroller-csp  
-RUN pip install avimigrationtools
+RUN pip install avimigrationtools bigsuds f5-sdk
 
 RUN mkdir -p /etc/ansible/library/avi 
 RUN cd /etc/ansible/library/avi && wget https://github.com/avinetworks/avi_ansible_modules/archive/master.tar.gz && tar -xvf master.tar.gz -C /etc/ansible/library
