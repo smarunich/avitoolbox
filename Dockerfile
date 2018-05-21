@@ -1,12 +1,12 @@
 # Dockerfile for building ubuntu:16.04 with avi sdk, ansible modules, terraform provider and migration tools
 #
-# Version  1.1.1
+# Version  1.1.2
 #
 FROM ubuntu:16.04
 
 MAINTAINER Sergey Marunich <marunich.s@gmail.com>
 
-ARG tf_version="0.11.5"
+ARG tf_version="0.11.7"
 
 RUN echo "===> Adding Ansible's PPA..."  && \
     echo "deb http://ppa.launchpad.net/ansible/ansible/ubuntu xenial main" | tee /etc/apt/sources.list.d/ansible.list           && \
@@ -19,8 +19,8 @@ RUN echo "===> Adding Ansible's PPA..."  && \
     apt-get install -y ansible wget python-dev python-pip python-virtualenv python-cffi ipython libssl-dev libffi-dev
 
 RUN pip install avisdk --upgrade
-RUN ansible-galaxy install avinetworks.avisdk avinetworks.avicontroller avinetworks.avise avinetworks.aviconfig avinetworks.avicontroller-azure
-RUN pip install avimigrationtools
+RUN ansible-galaxy install avinetworks.avisdk avinetworks.avicontroller avinetworks.avise avinetworks.aviconfig avinetworks.avicontroller-azure avinetworks.ansible-role-avicontroller-vmware avinetworks.avise-csp avinetworks.avicontroller-csp  
+RUN pip install avimigrationtools bigsuds f5-sdk
 
 RUN mkdir -p /etc/ansible/library/avi 
 RUN cd /etc/ansible/library/avi && wget https://github.com/avinetworks/avi_ansible_modules/archive/master.tar.gz && tar -xvf master.tar.gz -C /etc/ansible/library
@@ -46,11 +46,9 @@ RUN echo "export GOROOT=/usr/lib/go-1.9" >> /etc/bash.bashrc
 RUN echo "export GOPATH=$HOME/go" >> /etc/bash.bashrc
 RUN echo "export PATH=$PATH:/usr/lib/go-1.9/bin:$HOME/go/bin" >> /etc/bash.bashrc
 
-RUN mkdir -p /root/go/src/github.com/hashicorp
-RUN cd /root/go/src/github.com/hashicorp && git clone https://github.com/avinetworks/terraform-provider-avi.git
+RUN mkdir -p /root/go/src/github.com/hashicorp/terraform-provider-avi/vendor/github.com/avinetworks
+RUN cd /root/go/src/github.com/hashicorp/terraform-provider-avi/vendor/github.com/avinetworks && git clone https://github.com/avinetworks/terraform-provider-avi.git
 RUN /usr/lib/go-1.9/bin/go get github.com/avinetworks/sdk/go/session
-RUN mkdir -p /root/go/src/github.com/terraform-providers/terraform-provider-avi
-RUN cp -r /root/go/src/github.com/hashicorp/terraform-provider-avi /root/go/src/github.com/terraform-providers/
-RUN export PATH=$PATH:/usr/lib/go-1.9/bin && cd /root/go/src/github.com/terraform-providers/terraform-provider-avi  && make build
+RUN export PATH=$PATH:/usr/lib/go-1.9/bin && cd /root/go/src/github.com/hashicorp/terraform-provider-avi/vendor/github.com/avinetworks/terraform-provider-avi  && make build
 RUN mkdir -p /root/.terraform.d/plugins/ && ln -s /root/go/bin/terraform-provider-avi ~/.terraform.d/plugins/
 RUN mkdir -p /opt/terraform
