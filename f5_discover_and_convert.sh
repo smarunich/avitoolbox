@@ -1,4 +1,6 @@
 #!/bin/bash
+# to modify SSH port /usr/local/lib/python2.7/dist-packages/avi/migrationtools/scp_util.py
+
 read -p "Enter F5 IP: " f5_ip
 read -p "Enter User: " f5_user
 read -s -p "Enter Password: " f5_password
