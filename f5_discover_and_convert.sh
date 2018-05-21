@@ -28,3 +28,7 @@ f5_discovery.py -v "${f5_version}" \
   --f5_user "${f5_user}" \
   --f5_password "${f5_password}" \
   -o /root/${f5_ip}/f5_discovery
+
+echo -n "Creating archive..."
+
+tar -zcvf /root/${f5_ip}.tar.gz /root/${f5_ip}
