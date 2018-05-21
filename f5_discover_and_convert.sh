@@ -6,8 +6,12 @@ echo
 read -p "F5 version (10 or 11): " f5_version
 read -p "Enter Avi Controller Version: " controller_version
 
+echo -n "Creating folders..."
+
 mkdir -p /root/${f5_ip}/f5_converter
 mkdir -p /root/${f5_ip}/f5_discovery
+
+echo -n "Running f5_converter..."
 
 f5_converter.py --f5_host_ip "${f5_ip}" \
   --f5_ssh_user "${f5_user}" \
@@ -16,6 +20,8 @@ f5_converter.py --f5_host_ip "${f5_ip}" \
   --controller_version ${controller_version} \
   --ansible \
   -o /root/${f5_ip}/f5_converter
+
+echo -n "Running f5_discovery..."
 
 f5_discovery.py -v "${f5_version}" \
   --f5_ip "${f5_ip}" \
