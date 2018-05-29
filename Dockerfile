@@ -20,7 +20,7 @@ RUN echo "===> Adding Ansible's PPA..."  && \
 
 RUN pip install avisdk --upgrade
 RUN ansible-galaxy install avinetworks.avisdk avinetworks.avicontroller avinetworks.avise avinetworks.aviconfig avinetworks.avicontroller-azure avinetworks.avicontroller-vmware avinetworks.avise-csp avinetworks.avicontroller-csp --force
-RUN pip install avimigrationtools bigsuds f5-sdk
+RUN pip install avimigrationtools bigsuds f5-sdk pyvmomi pyvim
 
 RUN mkdir -p /etc/ansible/library/avi
 RUN cd /etc/ansible/library/avi && wget https://github.com/avinetworks/avi_ansible_modules/archive/master.tar.gz && tar -xvf master.tar.gz -C /etc/ansible/library
@@ -54,3 +54,6 @@ RUN mkdir -p /root/.terraform.d/plugins/ && ln -s /root/go/bin/terraform-provide
 RUN mkdir -p /opt/terraform
 
 RUN cd /root && wget https://raw.githubusercontent.com/smarunich/avitoolsbox/master/f5_discover_and_convert.sh && chmod 755 /root/f5_discover_and_convert.sh
+
+# ovftool
+RUN cd /usr/bin && wget https://raw.githubusercontent.com/smarunich/avitoolsbox/master/ovftool && chmod 755 /usr/bin/ovftool
