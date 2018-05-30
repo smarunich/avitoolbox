@@ -56,4 +56,5 @@ RUN mkdir -p /opt/terraform
 RUN cd /root && wget https://raw.githubusercontent.com/smarunich/avitoolsbox/master/f5_discover_and_convert.sh && chmod 755 /root/f5_discover_and_convert.sh
 
 # ovftool
-RUN cd /usr/bin && wget https://raw.githubusercontent.com/smarunich/avitoolsbox/master/ovftool && chmod 755 /usr/bin/ovftool
+RUN cd /tmp && wget https://raw.githubusercontent.com/smarunich/avitoolsbox/master/files/VMware-ovftool-4.3.0-7948156-lin.x86_64.bundle
+RUN /bin/bash /tmp/VMware-ovftool-4.3.0-7948156-lin.x86_64.bundle --eulas-agreed --required --console
