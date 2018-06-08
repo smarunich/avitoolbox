@@ -53,8 +53,8 @@ RUN export PATH=$PATH:/usr/lib/go-1.9/bin && cd /root/go/src/github.com/hashicor
 RUN mkdir -p /root/.terraform.d/plugins/ && ln -s /root/go/bin/terraform-provider-avi ~/.terraform.d/plugins/
 RUN mkdir -p /opt/terraform
 
-RUN cd /root && wget https://raw.githubusercontent.com/smarunich/avitoolsbox/master/f5_discover_and_convert.sh && chmod 755 /root/f5_discover_and_convert.sh
+RUN cd /root && wget https://raw.githubusercontent.com/smarunich/avitoolbox/master/f5_discover_and_convert.sh && chmod 755 /root/f5_discover_and_convert.sh
 
 # ovftool
-RUN cd /tmp && wget https://raw.githubusercontent.com/smarunich/avitoolsbox/master/files/VMware-ovftool-4.3.0-7948156-lin.x86_64.bundle
+RUN cd /tmp && wget https://raw.githubusercontent.com/smarunich/avitoolbox/master/files/VMware-ovftool-4.3.0-7948156-lin.x86_64.bundle
 RUN /bin/bash /tmp/VMware-ovftool-4.3.0-7948156-lin.x86_64.bundle --eulas-agreed --required --console
