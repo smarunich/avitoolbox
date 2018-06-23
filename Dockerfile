@@ -1,6 +1,6 @@
 # Dockerfile for building ubuntu:16.04 with avi sdk, ansible modules, terraform provider and migration tools
 #
-# Version  1.1.2
+# Version  1.2.1
 #
 FROM ubuntu:16.04
 
@@ -37,8 +37,8 @@ RUN mkdir -p /opt/ansible
 
 RUN echo "===> Installing Golang..." && \
     apt-get install -y golang-1.9-go
-RUN echo "===> Installing Terraform, AVI provider and misc..." && \
-    apt-get install -y fish git curl vim unzip make tmux httpie apache2-utils
+RUN echo "===> Installing Terraform, AVI provider and misc tools..." && \
+    apt-get install -y fish git curl vim unzip make tmux httpie apache2-utils slowhttptest telnet dnsutils iptuils-ping
 
 RUN curl https://releases.hashicorp.com/terraform/${tf_version}/terraform_${tf_version}_linux_amd64.zip -o terraform_${tf_version}_linux_amd64.zip
 RUN unzip terraform_${tf_version}_linux_amd64.zip -d /usr/local/bin
